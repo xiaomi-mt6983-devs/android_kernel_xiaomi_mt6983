@@ -125,6 +125,8 @@ ifneq ($(KERNELRELEASE),)
         obj-y += wlan_drv_gen4m/
     endif
 
+    # wmt core driver (common/Kbuild builds wmt_drv.ko, exports mtk_wcn_*)
+    obj-$(CONFIG_MTK_COMBO) += common/
     obj-$(CONFIG_MTK_COMBO) += conninfra/
     obj-$(CONFIG_MTK_COMBO_WIFI) += wlan/adaptor/
     obj-$(CONFIG_MTK_COMBO_CHIP_CONSYS_6983) += wlan/core/gen4m/

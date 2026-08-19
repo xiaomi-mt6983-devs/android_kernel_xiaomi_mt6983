@@ -6,13 +6,7 @@
 #ifndef MTK_DRM_FBDEV_H
 #define MTK_DRM_FBDEV_H
 
-struct tag_videolfb {
-	u64 fb_base;
-	u32 islcmfound;
-	u32 fps;
-	u32 vram;
-	char lcmname[1]; /* this is the minimum size */
-};
+/* struct tag_videolfb is defined in mtk_drm_drv.h */
 
 #ifdef CONFIG_DRM_FBDEV_EMULATION
 int mtk_fbdev_init(struct drm_device *dev);

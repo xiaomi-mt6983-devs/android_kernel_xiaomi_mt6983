@@ -6,6 +6,10 @@
 
 #include <apusys_trace.h>
 
+#ifndef TRACE_LEN
+#define TRACE_LEN 255
+#endif
+
 #include <common/mdla_device.h>
 
 #include <utilities/mdla_debug.h>

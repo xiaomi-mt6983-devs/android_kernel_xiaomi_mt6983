@@ -2426,13 +2426,9 @@ int musb_gadget_setup(struct musb *musb)
 
 	/* Fix: gadget device dma ops is null,so add musb controller dma ops */
 	/* to gadget device dma ops, otherwise will go do dma dump ops. */
-#if IS_ENABLED(CONFIG_XEN)
-	if (musb->controller->archdata.dev_dma_ops) {
-		DBG(0, "musb controller dma ops is non-null\n");
-		musb->g.dev.archdata.dev_dma_ops =
-			musb->controller->archdata.dev_dma_ops;
-	}
-#endif
+	/* NOTE: struct dev_archdata no longer has dev_dma_ops in newer
+	 * kernels, so this legacy XEN workaround has been dropped.
+	 */
 
 	status = usb_add_gadget_udc(musb->controller, &musb->g);
 	if (status)

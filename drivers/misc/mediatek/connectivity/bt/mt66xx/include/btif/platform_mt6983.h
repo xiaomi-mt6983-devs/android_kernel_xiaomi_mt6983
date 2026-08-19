@@ -692,12 +692,7 @@ static inline void bt_dump_bgfsys_suspend_wakeup_debug(void)
 
 	REG_WRITEL(CON_REG_SPM_BASE_ADDR + 0xC04, 0x300508);
 	value = REG_READL(CON_REG_SPM_BASE_ADDR + 0xC00);
-	ret = snprintf(pos, (end - pos + 1), "BT[0x%08x]=[0x%08x], ", 0x18060000 + 0xC00, value);
-        pos += ret;
-	
-        REG_WRITEL(CON_REG_SPM_BASE_ADDR + 0xC04, 0x300507);
-	value = REG_READL(CON_REG_SPM_BASE_ADDR + 0xC00);
-	ret = snprintf(pos, (end - pos + 1), "MCU[0x%08x]=[0x%08x]", 0x18060000 + 0xC00, value);
+	ret = snprintf(pos, (end - pos + 1), "[0x%08x]=[0x%08x]", 0x18060000 + 0xC00, value);
 
 	BTMTK_INFO("%s", g_dump_cr_buffer);
 }
@@ -1471,14 +1466,8 @@ static inline int32_t bgfsys_power_off(void)
 
 static inline void fwp_get_patch_names(void)
 {
-	// 修复：用MT6983支持的fwp_get_flavor_bin()替换未声明函数，类型匹配+无未使用变量
-const char *fw_flavor = fwp_get_flavor_bin();  // 1. 用支持的函数，变量类型为字符串指针
-if (fw_flavor != NULL && strlen(fw_flavor) > 0) {  // 2. 判断是否获取到有效固件版本
-    // 3. 按compose_fw_name声明传参（3个参数，均为字符串类型）
-    compose_fw_name(fw_flavor, BIN_NAME_MCU, NULL);
-} else {
-    // 可选：未获取到flavor时，使用默认固件名（避免空指针异常）
-    compose_fw_name("default", BIN_NAME_MCU, NULL);
-}
+	const char *flavor = fwp_get_flavor_bin();
+
+	compose_fw_name(flavor, BIN_NAME_MCU, BIN_NAME_BT);
 }
 #endif

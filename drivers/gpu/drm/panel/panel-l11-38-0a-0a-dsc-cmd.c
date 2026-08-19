@@ -161,7 +161,7 @@ static void lcm_panel_get_data(struct lcm *ctx)
 
 
 //AMOLED 1.6V:DVDD_1P6,GPIO193
-//AMOLED 1.8V:VDDI_1P8,VRF18_AIF
+//AMOLED 1.8V:VDDI_1P8,GPIO194,VAUD18
 //AMOLED 3V:VCI_3P0,VIBR
 
 static struct regulator *disp_vci;
@@ -242,25 +242,25 @@ static int lcm_panel_vci_disable(struct device *dev)
 
 static int lcm_panel_vddi_regulator_init(struct device *dev)
 {
-	static int vrf18_regulator_inited;
+	static int vaud18_regulator_inited;
 	int ret = 0;
 
-	if (vrf18_regulator_inited)
+	if (vaud18_regulator_inited)
                return ret;
 
 	/* please only get regulator once in a driver */
-	disp_vddi = regulator_get(dev, "vrf18");
+	disp_vddi = regulator_get(dev, "vaud18");
 	if (IS_ERR(disp_vddi)) { /* handle return value */
 		ret = PTR_ERR(disp_vddi);
 		pr_err("get disp_vddi fail, error: %d\n", ret);
 		return ret;
 	}
 
-	vrf18_regulator_inited = 1;
+	vaud18_regulator_inited = 1;
 	return ret; /* must be 0 */
 }
 
-static unsigned int vrf18_start_up = 1;
+static unsigned int vaud18_start_up = 1;
 static int lcm_panel_vddi_enable(struct device *dev)
 {
 	int ret = 0;
@@ -276,13 +276,13 @@ static int lcm_panel_vddi_enable(struct device *dev)
 	retval |= ret;
 
 	status = regulator_is_enabled(disp_vddi);
-	pr_info("%s regulator_is_enabled = %d, vrf18_start_up = %d\n", __func__, status, vrf18_start_up);
-	if (!status || vrf18_start_up){
+	pr_info("%s regulator_is_enabled = %d, vaud18_start_up = %d\n", __func__, status, vaud18_start_up);
+	if (!status || vaud18_start_up){
 		/* enable regulator */
 		ret = regulator_enable(disp_vddi);
 		if (ret < 0)
 			pr_err("enable regulator disp_vddi fail, ret = %d\n", ret);
-		vrf18_start_up = 0;
+		vaud18_start_up = 0;
 		retval |= ret;
 	}
 
@@ -2668,7 +2668,7 @@ static int lcm_probe(struct mipi_dsi_device *dsi)
 	if (!ret)
 		lcm_panel_vddi_enable(dev);
 	else
-		pr_err("%s init vrf18_aif regulator error\n", __func__);
+		pr_err("%s init vaud18 regulator error\n", __func__);
 
 	ctx->prepared = true;
 	ctx->enabled = true;

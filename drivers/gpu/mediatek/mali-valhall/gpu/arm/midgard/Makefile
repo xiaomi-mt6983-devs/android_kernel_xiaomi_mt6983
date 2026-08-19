@@ -332,6 +332,15 @@ mali_kbase-y += \
 
 
 
+mali_kbase-$(CONFIG_DEBUG_FS) += \
+    mali_kbase_mem_pool_debugfs.o \
+    mali_kbase_debugfs_helper.o \
+    mali_kbase_mem_profile_debugfs.o \
+    mali_kbase_as_fault_debugfs.o \
+    mali_kbase_gpu_memory_debugfs.o \
+    mali_kbase_regs_history_debugfs.o \
+    mali_kbase_dvfs_debugfs.o
+
 mali_kbase-$(CONFIG_MALI_CINSTR_GWT) += mali_kbase_gwt.o
 
 mali_kbase-$(CONFIG_SYNC) += \

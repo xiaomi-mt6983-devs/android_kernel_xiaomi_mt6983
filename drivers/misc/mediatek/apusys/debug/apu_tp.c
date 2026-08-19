@@ -51,7 +51,7 @@ void apu_tp_exit(struct apu_tp_tbl *tbl)
  * @fct: callback function for each tracepoint
  * @priv: private data to be passed to fct.
  */
-#ifdef MODULE
+#if defined(MODULE) && defined(CONFIG_TRACEPOINTS)
 static void for_each_apu_tracepoint(
 	void (*fct)(struct tracepoint *tp, void *priv),
 	void *priv, struct module *mod)
@@ -81,10 +81,10 @@ int apu_tp_init_mod(struct apu_tp_tbl *tbl, struct module *mod)
 {
 	struct apu_tp_tbl *t;
 
-#ifdef MODULE
+#if defined(MODULE) && defined(CONFIG_TRACEPOINTS)
 	for_each_apu_tracepoint(apu_tp_lookup, tbl, THIS_MODULE);
 	for_each_apu_tracepoint(apu_tp_lookup, tbl, mod);
-#else
+#elif !defined(MODULE)
 	for_each_kernel_tracepoint(apu_tp_lookup, tbl);
 #endif
 
