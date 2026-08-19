@@ -85,6 +85,26 @@ static DEFINE_IDA(wakeup_ida);
  * wakeup_source_create - Create a struct wakeup_source object.
  * @name: Name of the new wakeup source.
  */
+/**
+ * wakeup_source_init - Initialize a wakeup_source object
+ * @ws: Pointer to wakeup_source object
+ * @name: Name of the new wakeup source
+ *
+ * Compat API kept from older kernels; initializes a pre-allocated
+ * wakeup_source. Used by legacy MediaTek drivers (wakelock shim).
+ */
+void wakeup_source_init(struct wakeup_source *ws, const char *name)
+{
+	if (!ws)
+		return;
+
+	memset(ws, 0, sizeof(*ws));
+	ws->name = name;
+	ws->last_time = ktime_get();
+	spin_lock_init(&ws->lock);
+}
+EXPORT_SYMBOL_GPL(wakeup_source_init);
+
 struct wakeup_source *wakeup_source_create(const char *name)
 {
 	struct wakeup_source *ws;

@@ -33,6 +33,12 @@ mali_kbase-y += \
 
 mali_kbase-$(CONFIG_MALI_REAL_HW) += csf/mali_kbase_csf_firmware.o
 
+mali_kbase-$(CONFIG_DEBUG_FS) += \
+    csf/mali_kbase_csf_cpu_queue_debugfs.o \
+    csf/mali_kbase_csf_csg_debugfs.o \
+    csf/mali_kbase_csf_kcpu_debugfs.o \
+    csf/mali_kbase_csf_tiler_heap_debugfs.o
+
 
 ifeq ($(KBUILD_EXTMOD),)
 # in-tree

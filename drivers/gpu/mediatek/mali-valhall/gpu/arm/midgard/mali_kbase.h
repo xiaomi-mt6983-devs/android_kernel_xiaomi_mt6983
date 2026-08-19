@@ -111,6 +111,7 @@
  * Kernel-side Base (KBase) APIs
  */
 
+#define kbase_event_wakeup(kctx) _kbase_event_wakeup(kctx, true)
 #define kbase_event_wakeup_sync(kctx) _kbase_event_wakeup(kctx, true)
 #define kbase_event_wakeup_nosync(kctx) _kbase_event_wakeup(kctx, false)
 

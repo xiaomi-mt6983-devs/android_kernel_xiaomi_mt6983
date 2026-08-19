@@ -819,7 +819,8 @@ unsigned int connsys_log_get_buf_size(int conn_type)
 
 	return RING_SIZE(&handler->log_buffer.ring_cache);
 }
-EXPORT_SYMBOL(connsys_log_get_buf_size);
+/* exported by wmt_drv.ko (common/debug_utility/connsys_debug_utility.c) */
+/* EXPORT_SYMBOL(connsys_log_get_buf_size); */
 
 /*****************************************************************************
  * FUNCTION
@@ -908,7 +909,7 @@ ssize_t connsys_log_read_to_user(int conn_type, char __user *buf, size_t count)
 done:
 	return written;
 }
-EXPORT_SYMBOL(connsys_log_read_to_user);
+/* EXPORT_SYMBOL(connsys_log_read_to_user); */
 
 /*****************************************************************************
  * FUNCTION
@@ -935,7 +936,7 @@ ssize_t connsys_log_read(int conn_type, char *buf, size_t count)
 done:
 	return ret;
 }
-EXPORT_SYMBOL(connsys_log_read);
+/* EXPORT_SYMBOL(connsys_log_read); */
 
 
 /*****************************************************************************
@@ -1022,7 +1023,7 @@ int connsys_log_register_event_cb(int conn_type, CONNLOG_EVENT_CB func)
 	handler->callback.log_data_handler = func;
 	return 0;
 }
-EXPORT_SYMBOL(connsys_log_register_event_cb);
+/* EXPORT_SYMBOL(connsys_log_register_event_cb); */
 
 /*****************************************************************************
 * FUNCTION
@@ -1267,7 +1268,7 @@ int connsys_log_init(int conn_type)
 
 	return 0;
 }
-EXPORT_SYMBOL(connsys_log_init);
+/* EXPORT_SYMBOL(connsys_log_init); */
 
 /*****************************************************************************
 * Function
@@ -1315,7 +1316,7 @@ int connsys_log_deinit(int conn_type)
 	gLogDev[conn_type] = NULL;
 	return 0;
 }
-EXPORT_SYMBOL(connsys_log_deinit);
+/* EXPORT_SYMBOL(connsys_log_deinit); */
 
 /*****************************************************************************
 * FUNCTION
@@ -1532,7 +1533,7 @@ int connsys_dedicated_log_path_apsoc_init(phys_addr_t emiaddr, const struct conn
 
 	return 0;
 }
-EXPORT_SYMBOL(connsys_dedicated_log_path_apsoc_init);
+/* EXPORT_SYMBOL(connsys_dedicated_log_path_apsoc_init); */
 
 /*****************************************************************************
 * FUNCTION
@@ -1568,7 +1569,7 @@ int connsys_dedicated_log_path_apsoc_deinit(void)
 
 	return 0;
 }
-EXPORT_SYMBOL(connsys_dedicated_log_path_apsoc_deinit);
+/* EXPORT_SYMBOL(connsys_dedicated_log_path_apsoc_deinit); */
 
 /*****************************************************************************
 * FUNCTION

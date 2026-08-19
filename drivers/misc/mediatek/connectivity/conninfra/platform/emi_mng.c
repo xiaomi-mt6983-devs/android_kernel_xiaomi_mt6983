@@ -35,8 +35,16 @@
 *                         C O M P I L E R   F L A G S
 ********************************************************************************
 */
+/*
+ * gConEmiPhyBase/gConEmiSize are allocated and exported by wmt_drv.ko
+ * (ALLOCATE_CONNSYS_EMI_FROM_KO). Disable ALLOCATE_CONNSYS_EMI_FROM_DTS
+ * so this module references them via extern instead of exporting a second
+ * copy of the same symbols (modpost: exported twice).
+ */
+#if 0
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0))
 #define ALLOCATE_CONNSYS_EMI_FROM_DTS 1
+#endif
 #endif
 
 /*******************************************************************************
